@@ -41,13 +41,13 @@ function check_toolchain()
 
 function linux_build_uboot()
 {
-    CURDIR=$PWD
-
-    cd $SUNXI_UBOOT_PATH
-    make distclean
-    make sun6i_config
-    make -j4
-    cd $CURDIR
+	CURDIR=$PWD
+	
+	cd $SUNXI_UBOOT_PATH
+	make distclean
+	make sun6i_config
+	make -j4
+	cd $CURDIR
 }
 
 function linux_build_kernel()
@@ -62,32 +62,32 @@ function linux_build_kernel()
 
 function linux_pack()
 {
-    LINUX_PACK_OUT=$BUILD_TRUNK/out/linux
-
-    echo "Generating linux out directory!"
-    mkdir -p $LINUX_PACK_OUT
-
-    echo "Copiing uboot!"
-    cp $SUNXI_UBOOT_PATH/u-boot.bin $LINUX_PACK_OUT 
-    cp $SUNXI_UBOOT_PATH/u-boot-sun6i.bin $SUNXI_TOOLS_PATH/pack/chips/sun6i/bin/
-    echo "Copying linux kernel and modules!"
-    cp $SUNXI_LINUX_PATH/output/*Image $LINUX_PACK_OUT
-    cp $SUNXI_LINUX_PATH/output/boot.img $LINUX_PACK_OUT
-    cp -r $SUNXI_LINUX_PATH/output/lib $LINUX_PACK_OUT
-
-    echo "Packing final image!"
-    $SUNXI_TOOLS_PATH/scripts/build_pack.sh
+	LINUX_PACK_OUT=$BUILD_TRUNK/out/linux
+	
+	echo "Generating linux out directory!"
+	mkdir -p $LINUX_PACK_OUT
+	
+	echo "Copiing uboot!"
+	cp $SUNXI_UBOOT_PATH/u-boot.bin $LINUX_PACK_OUT 
+	cp $SUNXI_UBOOT_PATH/u-boot-sun6i.bin $SUNXI_TOOLS_PATH/pack/chips/sun6i/bin/
+	echo "Copying linux kernel and modules!"
+	cp $SUNXI_LINUX_PATH/output/*Image $LINUX_PACK_OUT
+	cp $SUNXI_LINUX_PATH/output/boot.img $LINUX_PACK_OUT
+	cp -r $SUNXI_LINUX_PATH/output/lib $LINUX_PACK_OUT
+	
+	echo "Packing final image!"
+	$SUNXI_TOOLS_PATH/scripts/build_pack.sh
 }
 
 function android_build_uboot()
 {
-    CURDIR=$PWD
-
-    cd $SUNXI_UBOOT_PATH
-    make distclean
-    make sun6i_config
-    make -j4
-    cd $CURDIR
+	CURDIR=$PWD
+	
+	cd $SUNXI_UBOOT_PATH
+	make distclean
+	make sun6i_config
+	make -j4
+	cd $CURDIR
 }
 
 function android_build_kernel()
