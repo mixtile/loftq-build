@@ -6,6 +6,7 @@ export SUNXI_TOOLS_PATH=$(pwd)/LoftQ.tools
 export SUNXI_LINUX_PATH=$(pwd)/LoftQ.linux-3.3
 export SUNXI_UBOOT_PATH=$(pwd)/LoftQ.uboot
 export SUNXI_TOOLCHAIN_PATH=${SUNXI_TOOLS_PATH}/toolschain/gcc-linaro/bin/
+export SUNXI_TOOLS_BIN_PATH=$SUNXI_TOOLS_PATH/pack/pctools/linux:$SUNXI_TOOLS_PATH/pack/pctools/linux/android
 
 # envs for android
 export ANDROID_TRUNK=$(pwd)/android
@@ -23,7 +24,7 @@ export ANDROID_OUT=${ANDROID_TRUNK}/out
 export ANDROID_DEVICE_OUT=${ANDROID_OUT}/target/product/${ANDROID_DEVICE}
 
 export LINARO_GCC_PATH=$SUNXI_TOOLCHAIN_PATH
-export PATH=$PATH:$LINARO_GCC_PATH
+export PATH=$PATH:$LINARO_GCC_PATH:$SUNXI_TOOLS_BIN_PATH
 
 export LANG=C
 export LC_ALL=C

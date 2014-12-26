@@ -1,7 +1,7 @@
 #!/bin/bash
 
 LICHEE_ROOT=$PWD
-PACK_ROOT=sunxi-tools/pack
+PACK_ROOT=$SUNXI_TOOLS_PATH/pack
 TARGET_CHIP="sun4i"
 TARGET_PLATFORM="linux"
 TARGET_BOARD="evb"
