@@ -2,9 +2,9 @@ export BUILD_TRUNK=$(pwd)
 export BUILD_TRUNK_OUT=$BUILD_TRUNK/out
 
 # envs for sunxi tools
-export SUNXI_TOOLS_PATH=$(pwd)/LoftQ.tools
-export SUNXI_LINUX_PATH=$(pwd)/LoftQ.linux-3.3
-export SUNXI_UBOOT_PATH=$(pwd)/LoftQ.uboot
+export SUNXI_TOOLS_PATH=$(pwd)/LOFT-Q.tools
+export SUNXI_LINUX_PATH=$(pwd)/LOFT-Q.linux-3.3
+export SUNXI_UBOOT_PATH=$(pwd)/LOFT-Q.uboot
 export SUNXI_TOOLCHAIN_PATH=${SUNXI_TOOLS_PATH}/toolschain/gcc-linaro/bin/
 export SUNXI_TOOLS_BIN_PATH=$SUNXI_TOOLS_PATH/pack/pctools/linux:$SUNXI_TOOLS_PATH/pack/pctools/linux/android
 
