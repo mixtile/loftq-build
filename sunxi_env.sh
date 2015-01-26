@@ -5,7 +5,7 @@ export BUILD_TRUNK_OUT=$BUILD_TRUNK/out
 export SUNXI_TOOLS_PATH=$(pwd)/LOFT-Q.tools
 export SUNXI_LINUX_PATH=$(pwd)/LOFT-Q.linux-3.3
 export SUNXI_UBOOT_PATH=$(pwd)/LOFT-Q.uboot
-export SUNXI_TOOLCHAIN_PATH=${SUNXI_TOOLS_PATH}/toolschain/gcc-linaro/bin/
+export SUNXI_TOOLCHAIN_PATH=${SUNXI_TOOLS_PATH}/toolschain/gcc-linaro/bin
 export SUNXI_TOOLS_BIN_PATH=$SUNXI_TOOLS_PATH/pack/pctools/linux:$SUNXI_TOOLS_PATH/pack/pctools/linux/android
 
 # envs for android
@@ -32,11 +32,10 @@ export LC_ALL=C
 function check_toolchain()
 {
 	if [ -d $SUNXI_TOOLCHAIN_PATH ]; then
-		echo "sunxi toolchain exists: $SUNXI_TOOLCHAIN_PATH";
+		echo "sunxi toolchain exists: $SUNXI_TOOLCHAIN_PATH"
 	else
 		tar -C $SUNXI_TOOLS_PATH/toolschain -xf $SUNXI_TOOLS_PATH/toolschain/gcc-linaro.tar.bz2
-		echo "extract sunxi toolchain: $SUNXI_TOOLCHAIN_PATH";
-		echo ""
+		echo "extract sunxi toolchain: $SUNXI_TOOLCHAIN_PATH"
 	fi
 }
 
