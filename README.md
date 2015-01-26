@@ -1,4 +1,4 @@
-LoftQ.tools
+loftq-build
 ===========
 
 tools for Loftq, including toolchains, build scripts, sunxi packing tools, etc
@@ -8,13 +8,13 @@ tools for Loftq, including toolchains, build scripts, sunxi packing tools, etc
 ## Download
 
 ```shell
-git clone https://github.com/mixtile/LoftQ.tools.git
+git clone https://github.com/mixtile/loftq-build.git
 ```
 
 ## Prepare
 
 ```shell
-source LoftQ.tools/sunxi_env.sh
+source loftq-build/sunxi_env.sh
 ```
 
 ## Build
