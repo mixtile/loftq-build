@@ -9,7 +9,7 @@ version = "100"
 machine = "mars-loftq"
 
 [platform]
-eraseflag   = 0
+eraseflag   = 1
 ;----------------------------------------------------------------------------------
 ;   system configuration
 ;   ?
@@ -187,11 +187,10 @@ standby_mode		= 1
 [wakeup_src_para]
 cpu_en				= 	0
 cpu_freq			=	48
-; (cpu:apb:ahb)
 pll_ratio			= 	0x111
-dram_selfresh_en		= 	1
+dram_selfresh_en	= 	1
 dram_freq			= 	36
-wakeup_event        		=   
+wakeup_event       	=   0x200
 wakeup_src0			= 	port:PL5<2><1><default><default>
 
 
@@ -863,7 +862,7 @@ tvin_channel_num    =
 ;--------------------------------------------------------------------------------
 [mmc0_para]
 sdc_used          = 1
-sdc_detmode       = 2
+sdc_detmode       = 1
 sdc_buswidth      = 4
 sdc_clk           = port:PF02<2><1><2><default>
 sdc_cmd           = port:PF03<2><1><2><default>
@@ -871,7 +870,7 @@ sdc_d0            = port:PF01<2><1><2><default>
 sdc_d1            = port:PF00<2><1><2><default>
 sdc_d2            = port:PF05<2><1><2><default>
 sdc_d3            = port:PF04<2><1><2><default>
-sdc_det           = port:PC16<6><1><2><default>
+sdc_det           = port:PC16<0><1><2><default>
 sdc_use_wp        = 0
 sdc_wp            =
 sdc_isio          = 0
@@ -879,7 +878,7 @@ sdc_regulator     = "none"
 
 [mmc1_para]
 sdc_used          = 1
-sdc_detmode       = 4
+sdc_detmode       = 2
 sdc_buswidth      = 4
 sdc_clk           = port:PG00<2><1><2><default>
 sdc_cmd           = port:PG01<2><1><2><default>
@@ -997,6 +996,7 @@ usb_detect_type     = 0
 usb_id_gpio         =
 usb_det_vbus_gpio   =
 usb_drv_vbus_gpio   =
+;usb_power_gpio      = port:PC25<1><0><default><0>
 usb_restrict_gpio   =
 usb_host_init_state = 1
 usb_restric_flag    = 0
@@ -1032,7 +1032,7 @@ serial_unique       = 0
 
 ;--------------------------------------------------------------------------------
 ; G sensor configuration
-; gs_twi_id	---  TWI ID for controlling Gsensor (0: TWI0, 1: TWI1, 2: TWI2)
+; gs_twi_id ---  TWI ID for controlling Gsensor (0: TWI0, 1: TWI1, 2: TWI2)
 ;--------------------------------------------------------------------------------
 [gsensor_para]
 gsensor_used        = 1
@@ -1042,12 +1042,34 @@ gsensor_int1        = port:PB04<6><1><default><default>
 gsensor_int2        =
 
 ;--------------------------------------------------------------------------------
+; G sensor automatic detection configuration
+;gsensor_detect_used  --- Whether startup automatic inspection function. 1:used,0:unused
+;Module name postposition 1 said detection, 0 means no detection.
+;--------------------------------------------------------------------------------
+[gsensor_list_para]
+gsensor_det_used          = 1
+bma250                    = 1
+
+;--------------------------------------------------------------------------------
 ; gps gpio configuration
 ; gps_spi_id		--- the index of SPI controller. 0: SPI0, 1: SPI1, 2: SPI2, 15: no SPI used
 ; gps_spi_cs_num	--- the chip select number of SPI controller. 0: SPI CS0, 1: SPI CS1
 ; gps_lradc			--- the lradc number for GPS used. 0 and 1 is valid, set 2 if not use lradc
 ;--------------------------------------------------------------------------------
 [gps_para]
+
+
+;--------------------------------------------------------------------------------
+; zigbee configurationa
+; zigbee_used     = 1
+; zigbee_serial   --- serial port number for zigbee
+; zigbee_reset    --- reset gpio for zigbee
+;--------------------------------------------------------------------------------
+[zigbee_para]
+zigbee_used        = 1
+zigbee_serial      = "ttyS3"
+zigbee_reset       = port:PC5<1><default><default><1>
+
 
 ;--------------------------------------------------------------------------------
 ;wifi configuration
@@ -1318,8 +1340,8 @@ main_mic_vol       = 6
 [ir_para]
 ir_used             = 1
 ir_rx               = port:PL04<2><1><default><default>
-ir_power_key_code   = 0x04
-ir_addr_code	    = 0x8600
+ir_power_key_code   = 0xA2
+ir_addr_code	    = 0xff00
 
 [axp_para]
 axp_num          = 1
