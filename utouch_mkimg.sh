@@ -46,14 +46,13 @@ build_ubuntu_rootfs()
 {
 	# prepare ubuntu target image
 	echo -n "preparing ubuntu target image ... "
-	UBUNTU_OUT=$OUT_DIR/
+	UBUNTU_OUT=$OUT_DIR
 	UBUNTU_ROOT=$UBUNTU_OUT/ubuntu.mnt
 
 	mkdir -p $UBUNTU_OUT
 
-	dd if=/dev/zero of=$UBUNTU_OUT/ubuntu.img bs=$UBUNTU_SIZE count=1 >/dev/null 2>&1
-	mkfs.ext2 -F $UBUNTU_OUT/ubuntu.img >/dev/null 2>&1
-
+	dd if=/dev/zero of=$UBUNTU_OUT/ubuntu.img bs=$UBUNTU_SIZE count=1
+	mkfs.ext2 -F $UBUNTU_OUT/ubuntu.img 
 	[ -e $UBUNTU_ROOT ] && rm -r $UBUNTU_ROOT
 	mkdir -p $UBUNTU_ROOT
 
@@ -64,11 +63,11 @@ build_ubuntu_rootfs()
 	# unpacking rootfs tarball
 	echo -n "unpacking rootfs tarball to ubuntu image ... "
 
-	cd $UBUNTU_ROOT
-
-	tar -C ./ -xf $TARPATH
+	tar -C $UBUNTU_ROOT -xzf $TARPATH
 
 	sync
+
+	cd $UBUNTU_ROOT
 
 	mkdir -p android/firmware
 	mkdir -p android/persist
@@ -80,13 +79,22 @@ build_ubuntu_rootfs()
 		do
 			ln -s /android/$link $link
 		done
+	
+	cd -
 
 	cd $UBUNTU_ROOT/lib && ln -s /system/lib/modules modules
+
+	cd -
+
 	cd $UBUNTU_ROOT && ln -s /android/system/vendor vendor
+	
+	cd -
 
 	[ -e $UBUNTU_ROOT/etc/mtab ] && rm $UBUNTU_ROOT/etc/mtab
 
 	cd $UBUNTU_ROOT/etc && ln -s /proc/mounts mtab
+
+	cd -
 
 	# move android image to lxc container directory
 
@@ -103,7 +111,8 @@ build_ubuntu_rootfs()
 	# clean ubuntu mounting dir
 	umount $UBUNTU_ROOT
 	rm -rf $UBUNTU_ROOT
-	mv  $UBUNTU_ROOT/ubuntu.img $SYSIMG
+	mv  $ANDROID_OUT/ubuntu.img $SYSIMG
+	chmod 0665 $SYSIMG
 	sync
 }
 
