@@ -10,8 +10,8 @@ export SUNXI_TOOLS_BIN_PATH=$SUNXI_TOOLS_PATH/pack/pctools/linux:$SUNXI_TOOLS_PA
 
 # envs for android
 export ANDROID_TRUNK=$(pwd)/android
-export ANDROID_DEVICE=loftq
-export ANDROID_DEVICE_TRUNK=${ANDROID_TRUNK}/device/mixtile/${ANDROID_DEVICE}
+export ANDROID_DEVICE=mars-loftq
+export ANDROID_DEVICE_TRUNK=${ANDROID_TRUNK}/device/softwinner/${ANDROID_DEVICE}
 
 # envs for ubuntu touch 
 # only used if we have android base sdk released by ubuntu touch team
@@ -109,6 +109,9 @@ function android_extract_bsp()
 
 	cd $ANDROID_DEVICE_TRUNK
 
+    #copy uboot to referring directory
+    cp $SUNXI_UBOOT_PATH/u-boot-sun6i.bin $SUNXI_TOOLS_PATH/pack/chips/sun6i/bin/u-boot-sun6i.bin
+
 	#extract kernel
 	if [ -f kernel ]; then
 		rm kernel
@@ -127,8 +130,8 @@ function android_extract_bsp()
 	chmod 0755 modules/modules/*
 
 	# create modules.mk
-    	(cat << EOF) > ./modules/modules.mk
-# modules.mk generate by extract-files.sh , do not edit it !!!!
+   	(cat << EOF) > ./modules/modules.mk
+    # modules.mk generate by extract-files.sh , do not edit it !!!!
 PRODUCT_COPY_FILES += \\
 	\$(call find-copy-subdir-files,*,\$(LOCAL_PATH)/modules,system/vendor/modules)
 

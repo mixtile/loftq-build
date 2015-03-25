@@ -185,13 +185,13 @@ standby_mode		= 1
 ;	wakeup_src: to make the scenario work, the wakeup src is needed.
 ;---------------------------------------------------------------------------------------------------------
 [wakeup_src_para]
-cpu_en				= 	0
+cpu_en				= 	1
 cpu_freq			=	48
 pll_ratio			= 	0x111
 dram_selfresh_en	= 	1
 dram_freq			= 	36
-wakeup_event       	=   0x80
-wakeup_src0			= 	port:PL5<2><1><default><default>
+wakeup_event       	=   0x200
+wakeup_src0			= 	port:PL05<2><1><default><default>
 
 
 ;------------------------------------------------------------------------------;
@@ -893,7 +893,7 @@ sdc_isio          = 1
 sdc_regulator     = "none"
 
 [mmc2_para]
-sdc_used          = 0
+sdc_used          = 1
 sdc_detmode       = 3
 sdc_buswidth      = 8
 sdc_clk           = port:PC07<3><1><2><default>
@@ -1325,9 +1325,9 @@ headphone_vol      = 0x3b
 earpiece_vol       = 0x3b
 cap_vol            = 0x5
 pa_single_vol      = 0x19
-pa_double_used     = 0
+pa_double_used     = 0 
 pa_double_vol      = 0x1f
-headphone_direct_used	= 0
+headphone_direct_used	= 1
 headphone_mute_used	= 0
 audio_pa_ctrl       	= port:PA18<1><default><default><0>
 audio_mute_ctrl       	= port:PA17<1><default><default><0>
