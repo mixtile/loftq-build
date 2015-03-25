@@ -10,15 +10,10 @@ export SUNXI_TOOLCHAIN_PATH=${SUNXI_TOOLS_PATH}/toolschain/gcc-linaro/bin
 export SUNXI_TOOLS_BIN_PATH=$SUNXI_TOOLS_PATH/pack/pctools/linux:$SUNXI_TOOLS_PATH/pack/pctools/linux/android
 
 # envs for android
+#export ANDROID_TRUNK=$(pwd)/ubuntu-phablet
 export ANDROID_TRUNK=$(pwd)/android
-<<<<<<< HEAD
 export ANDROID_DEVICE=mars-loftq
 export ANDROID_DEVICE_TRUNK=${ANDROID_TRUNK}/device/softwinner/${ANDROID_DEVICE}
-=======
-#export ANDROID_TRUNK=$(pwd)/ubuntu-phablet
-export ANDROID_DEVICE=loftq
-export ANDROID_DEVICE_TRUNK=${ANDROID_TRUNK}/device/mixtile/${ANDROID_DEVICE}
->>>>>>> 9d559d2a4a0250f4c54687f0c329bf1fc8541fdd
 
 # envs for ubuntu touch 
 # only used if we have android base sdk released by ubuntu touch team
