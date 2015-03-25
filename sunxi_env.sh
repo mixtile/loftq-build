@@ -5,13 +5,20 @@ export BUILD_TRUNK_OUT=$BUILD_TRUNK/out
 export SUNXI_TOOLS_PATH=$(pwd)/loftq-build
 export SUNXI_LINUX_PATH=$(pwd)/loftq-linux
 export SUNXI_UBOOT_PATH=$(pwd)/loftq-uboot
+export SUNXI_UBOOT_NEXT_PATH=$(pwd)/loftq-uboot-next
 export SUNXI_TOOLCHAIN_PATH=${SUNXI_TOOLS_PATH}/toolschain/gcc-linaro/bin
 export SUNXI_TOOLS_BIN_PATH=$SUNXI_TOOLS_PATH/pack/pctools/linux:$SUNXI_TOOLS_PATH/pack/pctools/linux/android
 
 # envs for android
 export ANDROID_TRUNK=$(pwd)/android
+<<<<<<< HEAD
 export ANDROID_DEVICE=mars-loftq
 export ANDROID_DEVICE_TRUNK=${ANDROID_TRUNK}/device/softwinner/${ANDROID_DEVICE}
+=======
+#export ANDROID_TRUNK=$(pwd)/ubuntu-phablet
+export ANDROID_DEVICE=loftq
+export ANDROID_DEVICE_TRUNK=${ANDROID_TRUNK}/device/mixtile/${ANDROID_DEVICE}
+>>>>>>> 9d559d2a4a0250f4c54687f0c329bf1fc8541fdd
 
 # envs for ubuntu touch 
 # only used if we have android base sdk released by ubuntu touch team
@@ -41,23 +48,28 @@ function check_toolchain()
 
 function linux_build_uboot()
 {
-	CURDIR=$PWD
-	
 	cd $SUNXI_UBOOT_PATH
 	make distclean
 	make sun6i_config
 	make -j4
-	cd $CURDIR
+	cd -
+}
+
+function linux_build_uboot_next()
+{	
+	cd $SUNXI_UBOOT_NEXT_PATH
+	make distclean
+	make CROSS_COMPILE=arm-linux-gnueabi- mixtile_loftq_defconfig
+	make CROSS_COMPILE=arm-linux-gnueabi- -j4
+	cd -
 }
 
 function linux_build_kernel()
 {
-	CURDIR=$PWD
-
 	cd $SUNXI_LINUX_PATH
 	./build.sh -p sun6i
 
-	cd $CURDIR
+	cd -
 }
 
 function linux_pack()
@@ -67,7 +79,7 @@ function linux_pack()
 	echo "Generating linux out directory!"
 	mkdir -p $LINUX_PACK_OUT
 	
-	echo "Copiing uboot!"
+	echo "Copying uboot!"
 	cp $SUNXI_UBOOT_PATH/u-boot.bin $LINUX_PACK_OUT 
 	cp $SUNXI_UBOOT_PATH/u-boot-sun6i.bin $SUNXI_TOOLS_PATH/pack/chips/sun6i/bin/
 	echo "Copying linux kernel and modules!"
@@ -97,7 +109,7 @@ function android_build_kernel()
 	cd $SUNXI_LINUX_PATH
 	./build.sh -p sun6i_fiber
 
-	cd $CURDIR
+	cd -
 }
 
 
@@ -106,6 +118,8 @@ function android_extract_bsp()
 	LINUXOUT_DIR=$SUNXI_LINUX_PATH/output
 	LINUXOUT_MODULE_DIR=$LINUXOUT_DIR/lib/modules/*/*
 	CURDIR=$PWD
+
+	cp $SUNXI_UBOOT_PATH/u-boot-sun6i.bin $SUNXI_TOOLS_PATH/pack/chips/sun6i/bin/
 
 	cd $ANDROID_DEVICE_TRUNK
 
