@@ -114,8 +114,6 @@ function android_extract_bsp()
 	LINUXOUT_MODULE_DIR=$LINUXOUT_DIR/lib/modules/*/*
 	CURDIR=$PWD
 
-	cp $SUNXI_UBOOT_PATH/u-boot-sun6i.bin $SUNXI_TOOLS_PATH/pack/chips/sun6i/bin/
-
 	cd $ANDROID_DEVICE_TRUNK
 
     #copy uboot to referring directory
@@ -171,7 +169,7 @@ function android_pack()
 		SIGMODE="sig";
 	fi
 
-	./pack -c sun6i -p android -b loftq  -d ${DEBUG} -s ${SIGMODE}
+	./pack -c sun6i -p android -b $ANDROID_DEVICE  -d ${DEBUG} -s ${SIGMODE}
 
 
 	cd -
