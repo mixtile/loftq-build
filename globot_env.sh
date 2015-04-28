@@ -12,14 +12,10 @@ export SUNXI_TOOLCHAIN_PATH=${SUNXI_TOOLS_PATH}/toolschain/gcc-linaro/bin
 export SUNXI_TOOLS_ANDROID_PATH=$SUNXI_TOOLS_PATH/pack/pctools/linux/android
 export SUNXI_TOOLS_LINUX_PATH=$SUNXI_TOOLS_PATH/pack/pctools/linux
 
-# commom env
-export ANDROID_OUT=${ANDROID_TRUNK}/out
-export ANDROID_DEVICE_OUT=${ANDROID_OUT}/target/product/${ANDROID_DEVICE}
-
 export LINARO_GCC_PATH=$SUNXI_TOOLCHAIN_PATH
 export PATH=$PATH:$LINARO_GCC_PATH:$SUNXI_TOOLS_ANDROID_PATH
 export PATH=$PATH:$SUNXI_TOOLS_LINUX_PATH/mod_update:$SUNXI_TOOLS_LINUX_PATH/eDragonEx:$SUNXI_TOOLS_LINUX_PATH/fsbuild200
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${SUNXI_TOOLS_LINUX_PATH}/libs
+export LD_LIBRARY_PATH=${SUNXI_TOOLS_LINUX_PATH}/libs:$LD_LIBRARY_PATH
 export CROSS_COMPILE=arm-linux-gnueabi-
 
 export LANG=C
@@ -57,7 +53,7 @@ function linux_build_kernel()
 {
 	cd $SUNXI_LINUX_PATH
 
-    kernel_cfg=sun8iw3p1smp_linux_defconfig
+    kernel_cfg=mixtile_globot_defconfig
 
     if [ -d output ]; then
         rm -rf output
@@ -70,7 +66,7 @@ function linux_build_kernel()
 
     make clean
     # build kernel uImage    
-    make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- -j4 uImage modules
+    make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- -j16 uImage modules
    
     # build modules 
     make INSTALL_MOD_PATH=output ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- -j4 modules_install
@@ -79,9 +75,14 @@ function linux_build_kernel()
     if [ -d skel ]; then
         rm -rf skel && mkdir skel
         gzip -dc rootfs.cpio.gz | (cd skel; fakeroot cpio -i)
+    else
+        mkdir skel
+        gzip -dc rootfs.cpio.gz | (cd skel; fakeroot cpio -i)
     fi
 
     # copy kernel modules to referring directory of rootfs
+    rm -rf ./output/lib/modules/3.4.39/build
+    rm -rf ./output/lib/modules/3.4.39/source
     cp -r ./output/lib/modules ./skel/lib
 
     cd skel 
@@ -169,7 +170,7 @@ function linux_pack()
     update_mbr sys_partition.bin  4
 
     fsbuild boot-resource.ini split_xxxx.fex
-
+    mv boot-resource.fex bootloader.fex
     # get env.fex
     u_boot_env_gen env.cfg env.fex
 
