@@ -9,7 +9,7 @@ version = "100"
 machine = "mars-loftq"
 
 [platform]
-eraseflag   = 0
+eraseflag   = 1
 ;----------------------------------------------------------------------------------
 ;   system configuration
 ;   ?
@@ -130,7 +130,7 @@ dram_tpr2       = 0x39a70140
 dram_tpr3       = 0xa092e74c
 dram_tpr4       = 0x2948c209 
 dram_tpr5       = 0x8944422c
-dram_tpr6       = 0x30028480
+dram_tpr6       = 0x300284800
 dram_tpr7       = 0x2a3279
 dram_tpr8       = 0x5034fa8
 dram_tpr9       = 0x36353d8
@@ -190,13 +190,8 @@ cpu_freq			=	48
 pll_ratio			= 	0x111
 dram_selfresh_en	= 	1
 dram_freq			= 	36
-<<<<<<< HEAD
-wakeup_event       	=   0x80
-wakeup_src0			= 	port:PL5<2><1><default><default>
-=======
 wakeup_event       	=   0x200
 wakeup_src0			= 	port:PL05<2><1><default><default>
->>>>>>> 9d559d2a4a0250f4c54687f0c329bf1fc8541fdd
 
 
 ;------------------------------------------------------------------------------;
@@ -592,7 +587,7 @@ deu_mode            = 0
 lcdgamma4iep        = 22
 smart_color        = 90
 
-lcd_bl_en           = port:PC22<1><0><default><1>
+lcd_bl_en           = port:PA25<1><0><default><1>
 lcd_power           = port:power2<1><0><default><1>
 lcd_pwm             = port:PH13<2><0><default><default>
 
@@ -1330,7 +1325,7 @@ headphone_vol      = 0x3b
 earpiece_vol       = 0x3b
 cap_vol            = 0x5
 pa_single_vol      = 0x19
-pa_double_used     = 1
+pa_double_used     = 0 
 pa_double_vol      = 0x1f
 headphone_direct_used	= 1
 headphone_mute_used	= 0
