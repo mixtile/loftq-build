@@ -63,7 +63,7 @@ size = 16384
 
 ;------------------------------>mmcblk0p8/nande
 [partition]
-    name         = userdata
+    name         = data
     size         = 2097152
     user_type    = 0xC000
 

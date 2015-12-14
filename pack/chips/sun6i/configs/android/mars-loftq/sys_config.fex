@@ -318,17 +318,13 @@ uart_port       = 3
 uart_type       = 2
 uart_tx         = port:PB05<3><1><default><default>
 uart_rx         = port:PB06<3><1><default><default>
-uart_rts        = port:PB04<3><1><default><default>
-uart_cts        = port:PB00<3><1><default><default>
 
 [uart_para4]
-uart_used       = 0
+uart_used       = 1
 uart_port       = 4
 uart_type       = 2
 uart_tx         = port:PG17<2><1><default><default>
 uart_rx         = port:PG18<2><1><default><default>
-uart_rts        = port:PB04<3><1><default><default>
-uart_cts        = port:PB00<3><1><default><default>
 
 [uart_para5]
 uart_used       = 0
